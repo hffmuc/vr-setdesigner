@@ -447,7 +447,7 @@ h1, h2, h3, h4 {
 
 .about-sticky-text {
     position: sticky;
-    top: 140px;
+    top: calc(var(--header-height) + 3rem);
     height: fit-content;
 }
 
@@ -477,9 +477,13 @@ h1, h2, h3, h4 {
     transform: scale(1.03);
 }
 
+.about-content {
+    padding-bottom: 4rem;
+}
+
 .about-content p {
     color: var(--text-platinum);
-    margin-bottom: 2rem;
+    margin-bottom: 3.5rem;
     font-size: 1rem;
     line-height: 1.65;
 }
@@ -488,7 +492,7 @@ h1, h2, h3, h4 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    margin-top: 3rem;
+    margin-top: 5.5rem;
 }
 
 .metric-card {
@@ -576,6 +580,11 @@ h1, h2, h3, h4 {
     opacity: 1;
     transform: scale(1) translateY(0);
     z-index: 2;
+}
+
+/* Mobile-only inline showcase images (hidden by default on desktop) */
+.mobile-showcase-image {
+    display: none;
 }
 
 /* Right Panel - Scrolling Descriptions */
@@ -1153,31 +1162,30 @@ h1, h2, h3, h4 {
         margin-top: 2rem;
     }
     
-    /* Interactive Showcase Mobile Adaptations */
+    /* Interactive Showcase Tablet/Mobile Adaptations */
     .showcase-container {
         flex-direction: column;
     }
     
     .showcase-visuals-wrapper {
+        display: none !important;
+    }
+    
+    .mobile-showcase-image {
+        display: block;
         width: 100%;
-        height: 280px;
-        position: sticky;
-        top: var(--header-height);
-        background-color: var(--bg-dark);
-        padding: 1rem 0;
-        z-index: 50;
-        justify-content: center;
-        border-bottom: 1px solid var(--border-glass);
-    }
-    
-    .showcase-visuals-inner {
-        max-width: 440px;
-        height: 100%;
-        aspect-ratio: auto;
-    }
-    
-    .visual-frame {
+        aspect-ratio: 16/10;
         border-radius: 8px;
+        overflow: hidden;
+        background-color: #000;
+        border: 1px solid var(--border-glass);
+        margin-bottom: 1.5rem;
+    }
+
+    .mobile-showcase-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     
     .showcase-content-wrapper {
@@ -1355,7 +1363,4 @@ h1, h2, h3, h4 {
         padding: 2rem 1.25rem;
     }
     
-    .showcase-visuals-wrapper {
-        height: 200px;
-    }
 }
