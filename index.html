@@ -175,40 +175,55 @@
 
     <!-- About Section -->
     <section class="about-section" id="about">
-        <div class="section-container grid-2">
-            <div class="about-sticky-text">
-                <span class="section-tag">
-                    <span class="lang-en">THE INITIATIVE</span>
-                    <span class="lang-de">DIE INITIATIVE</span>
-                </span>
-                <h2 class="section-title">
-                    <span class="lang-en">Bridging Physical Craft and Virtual Realities</span>
-                    <span class="lang-de">Verbindung von Handwerk und virtueller Realität</span>
-                </h2>
-                <div class="about-image-container">
-                    <img src="assets/initiative_concept.png" alt="Juxtaposition of physical props and holographic layouts">
-                </div>
-            </div>
-            <div class="about-content">
-                <p class="lead-text lang-en">Originating as a specialized research project at the <strong>Hochschule für Fernsehen und Film München (HFF)</strong>, the VR Setdesigner initiative introduces a new paradigm for movie scenography.</p>
-                <p class="lead-text lang-de">Als Forschungsprojekt an der <strong>Hochschule für Fernsehen und Film München (HFF)</strong> begründet die Initiative VR Setdesigner ein neues Paradigma für das Szenenbild beim Film.</p>
-                
-                <p class="lang-en">Traditional set design relies on physical props, extensive location scouting, and flat 2D blueprinting. We bridge this gap by bringing photorealistic physical elements directly into an immersive virtual soundstage. By capturing actual furniture, textures, and structures using 3D Gaussian Splatting, set designers can arrange, scale, and evaluate sets within VR at a 1:1 scale before any physical construction begins.</p>
-                <p class="lang-de">Klassisches Szenenbild beruht auf physischen Requisiten, aufwändigem Location Scouting und zweidimensionalen Plänen. Wir schließen diese Lücke, indem wir fotorealistische physische Elemente direkt auf eine immersive virtuelle Bühne bringen. Durch die Erfassung realer Möbel, Texturen und Kulissen mittels 3D Gaussian Splatting können Szenenbildner Sets in VR im Maßstab 1:1 anordnen, skalieren und bewerten, noch bevor der physische Aufbau beginnt.</p>
-                
-                <div class="metric-grid">
-                    <div class="metric-card">
-                        <span class="metric-num">1:1</span>
-                        <span class="metric-label lang-en">Spatial Scale Precision</span>
-                        <span class="metric-label lang-de">Räumliche Präzision</span>
-                    </div>
-                    <div class="metric-card">
-                        <span class="metric-num">3D GS</span>
-                        <span class="metric-label lang-en">Photorealistic Rendering</span>
-                        <span class="metric-label lang-de">Fotorealismus</span>
+        <div class="about-container">
+            
+            <!-- Sticky Visuals Panel (Left) -->
+            <div class="about-visuals-wrapper">
+                <div class="about-sticky-content">
+                    <span class="section-tag">
+                        <span class="lang-en">THE INITIATIVE</span>
+                        <span class="lang-de">DIE INITIATIVE</span>
+                    </span>
+                    <h2 class="section-title">
+                        <span class="lang-en">Bridging Physical Craft and Virtual Realities</span>
+                        <span class="lang-de">Verbindung von Handwerk und virtueller Realität</span>
+                    </h2>
+                    <div class="about-image-container">
+                        <img src="assets/initiative_concept.png" alt="Juxtaposition of physical props and holographic layouts">
                     </div>
                 </div>
             </div>
+            
+            <!-- Scrolling Copy Panel (Right) -->
+            <div class="about-content-wrapper">
+                <div class="about-step-anchor">
+                    <div class="about-step-card">
+                        <p class="lead-text lang-en">Originating as a specialized research project at the <strong>Hochschule für Fernsehen und Film München (HFF)</strong>, the VR Setdesigner initiative introduces a new paradigm for movie scenography.</p>
+                        <p class="lead-text lang-de">Als Forschungsprojekt an der <strong>Hochschule für Fernsehen und Film München (HFF)</strong> begründet die Initiative VR Setdesigner ein neues Paradigma für das Szenenbild beim Film.</p>
+                        
+                        <p class="lang-en">Traditional set design relies on physical props, extensive location scouting, and flat 2D blueprinting. We bridge this gap by bringing photorealistic physical elements directly into an immersive virtual soundstage. By capturing actual furniture, textures, and structures using 3D Gaussian Splatting, set designers can arrange, scale, and evaluate sets within VR at a 1:1 scale before any physical construction begins.</p>
+                        <p class="lang-de">Klassisches Szenenbild beruht auf physischen Requisiten, aufwändigem Location Scouting und zweidimensionalen Plänen. Wir schließen diese Lücke, indem wir fotorealistische physische Elemente direkt auf eine immersive virtuelle Bühne bringen. Durch die Erfassung realer Möbel, Texturen und Kulissen mittels 3D Gaussian Splatting können Szenenbildner Sets in VR im Maßstab 1:1 anordnen, skalieren und bewerten, noch bevor der physische Aufbau beginnt.</p>
+                    </div>
+                </div>
+                
+                <div class="about-step-anchor">
+                    <div class="about-step-card">
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <span class="metric-num">1:1</span>
+                                <span class="metric-label lang-en">Spatial Scale Precision</span>
+                                <span class="metric-label lang-de">Räumliche Präzision</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-num">3D GS</span>
+                                <span class="metric-label lang-en">Photorealistic Rendering</span>
+                                <span class="metric-label lang-de">Fotorealismus</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </section>
 
@@ -232,9 +247,6 @@
             <div class="showcase-content-wrapper">
                 <div class="showcase-step-anchor" data-target="img-splat">
                     <div class="step-card">
-                        <div class="mobile-showcase-image">
-                            <img src="assets/capture_splat.png" alt="Gaussian Splatting reconstruction representation">
-                        </div>
                         <span class="step-number">01</span>
                         <span class="step-tag lang-en">ACQUISITION</span>
                         <span class="step-tag lang-de">ERFASSUNG</span>
@@ -251,9 +263,6 @@
                 
                 <div class="showcase-step-anchor" data-target="img-workspace">
                     <div class="step-card">
-                        <div class="mobile-showcase-image">
-                            <img src="assets/hero_bg.png" alt="Virtual Soundstage representation">
-                        </div>
                         <span class="step-number">02</span>
                         <span class="step-tag lang-en">COMPOSITION</span>
                         <span class="step-tag lang-de">KOMPOSITION</span>
@@ -270,11 +279,7 @@
                 
                 <div class="showcase-step-anchor" data-target="img-vr">
                     <div class="step-card">
-                        <div class="mobile-showcase-image">
-                            <img src="assets/immersive_vr.png" alt="VR set design inspection representation">
-                        </div>
                         <span class="step-number">03</span>
-                        <span class="step-number-divider"></span>
                         <span class="step-tag lang-en">IMMERSION</span>
                         <span class="step-tag lang-de">IMMERSION</span>
                         

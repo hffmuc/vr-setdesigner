@@ -433,22 +433,31 @@ h1, h2, h3, h4 {
    5. About Section
    -------------------------------------------------------------------------- */
 .about-section {
-    padding: 9rem 0;
     background-color: var(--bg-dark);
     position: relative;
     border-bottom: 1px solid var(--border-glass);
 }
 
-.section-container {
-    max-width: 1100px;
+.about-container {
+    display: flex;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-.about-sticky-text {
+.about-visuals-wrapper {
+    width: 50%;
+    height: 100vh;
     position: sticky;
-    top: calc(var(--header-height) + 3rem);
-    height: fit-content;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-right: 4rem;
+}
+
+.about-sticky-content {
+    width: 100%;
 }
 
 .about-image-container {
@@ -469,30 +478,50 @@ h1, h2, h3, h4 {
     transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.about-sticky-text:hover .about-image-container {
+.about-sticky-content:hover .about-image-container {
     border-color: var(--border-hover);
 }
 
-.about-sticky-text:hover .about-image-container img {
+.about-sticky-content:hover .about-image-container img {
     transform: scale(1.03);
 }
 
-.about-content {
-    padding-bottom: 4rem;
+.about-content-wrapper {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
 }
 
-.about-content p {
+.about-step-anchor {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.about-step-card {
+    padding: 0 0 0 3rem;
+}
+
+.about-step-card p {
     color: var(--text-platinum);
-    margin-bottom: 3.5rem;
+    margin-bottom: 2rem;
     font-size: 1rem;
     line-height: 1.65;
+}
+
+.about-step-card p.lead-text {
+    font-size: 1.25rem;
+    line-height: 1.55;
+    color: var(--text-pure-white);
+    font-weight: 500;
+    margin-bottom: 2rem;
 }
 
 .metric-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    margin-top: 5.5rem;
+    width: 100%;
 }
 
 .metric-card {
@@ -1153,39 +1182,62 @@ h1, h2, h3, h4 {
         gap: 3rem;
     }
     
-    .about-sticky-text {
+    .about-container {
+        flex-direction: column;
+    }
+    
+    .about-visuals-wrapper {
+        width: 100%;
+        height: auto;
         position: relative;
         top: 0;
+        padding-right: 0;
+        padding-top: 5rem;
+    }
+    
+    .about-content-wrapper {
+        width: 100%;
+    }
+    
+    .about-step-anchor {
+        min-height: auto;
+        padding: 2.5rem 0;
+    }
+    
+    .about-step-card {
+        padding: 0;
     }
     
     .metric-grid {
         margin-top: 2rem;
     }
     
-    /* Interactive Showcase Tablet/Mobile Adaptations */
+    /* Interactive Showcase Mobile Adaptations */
     .showcase-container {
         flex-direction: column;
     }
     
     .showcase-visuals-wrapper {
-        display: none !important;
+        display: flex !important;
+        width: 100%;
+        height: 280px;
+        position: sticky;
+        top: var(--header-height);
+        background-color: var(--bg-dark);
+        padding: 1rem 0;
+        z-index: 50;
+        justify-content: center;
+        border-bottom: 1px solid var(--border-glass);
     }
     
-    .mobile-showcase-image {
-        display: block;
-        width: 100%;
-        aspect-ratio: 16/10;
-        border-radius: 8px;
-        overflow: hidden;
-        background-color: #000;
-        border: 1px solid var(--border-glass);
-        margin-bottom: 1.5rem;
-    }
-
-    .mobile-showcase-image img {
-        width: 100%;
+    .showcase-visuals-inner {
+        max-width: 440px;
         height: 100%;
-        object-fit: cover;
+        aspect-ratio: auto;
+    }
+    
+    .visual-frame {
+        border-radius: 8px;
     }
     
     .showcase-content-wrapper {
@@ -1363,4 +1415,11 @@ h1, h2, h3, h4 {
         padding: 2rem 1.25rem;
     }
     
+    .showcase-visuals-wrapper {
+        height: 200px;
+    }
+
+    .about-visuals-wrapper {
+        padding-top: 3rem;
+    }
 }
