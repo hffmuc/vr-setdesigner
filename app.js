@@ -255,4 +255,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* ==========================================================================
+       7. Mobile Hamburger Menu Toggle
+       ========================================================================== */
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainHeader = document.getElementById('header');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (menuToggle && mainHeader) {
+        menuToggle.addEventListener('click', () => {
+            mainHeader.classList.toggle('mobile-open');
+        });
+    }
+
+    // Auto-close menu drawer when clicking on navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mainHeader) {
+                mainHeader.classList.remove('mobile-open');
+            }
+        });
+    });
+
+    // Close menu drawer if window is resized above mobile breakpoint
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 767 && mainHeader) {
+            mainHeader.classList.remove('mobile-open');
+        }
+    });
+
 });
