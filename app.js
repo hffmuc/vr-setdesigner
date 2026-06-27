@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================================================== */
     const menuToggle = document.getElementById('menu-toggle');
     const mainHeader = document.getElementById('header');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.nav-link');
 
     if (menuToggle && mainHeader) {
         menuToggle.addEventListener('click', () => {
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Auto-close menu drawer when clicking on navigation links
-    navLinks.forEach(link => {
+    mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (mainHeader) {
                 mainHeader.classList.remove('mobile-open');
