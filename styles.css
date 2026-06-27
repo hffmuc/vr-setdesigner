@@ -647,11 +647,6 @@ h1, h2, h3, h4 {
     opacity: 1;
 }
 
-/* Make first step card visible by default */
-.showcase-step-anchor:first-child .step-card {
-    opacity: 1;
-}
-
 .step-number {
     display: block;
     font-family: var(--font-heading);

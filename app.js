@@ -65,74 +65,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const showcaseImgs = document.querySelectorAll('.showcase-img');
 
     if (stepAnchors.length > 0 && showcaseImgs.length > 0) {
-        // Activate the first step card by default
-        const firstCard = stepAnchors[0].querySelector('.step-card');
-        if (firstCard) firstCard.classList.add('active-focus');
+        let currentActiveTarget = 'img-splat'; // Track current to avoid redundant DOM writes
 
-        // Track visibility of each step anchor
-        const stepVisibility = new Map();
+        function updateShowcase() {
+            const viewportCenter = window.innerHeight / 2;
+            let closestAnchor = null;
+            let closestDistance = Infinity;
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px 0px 0px',
-            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-        };
+            stepAnchors.forEach(anchor => {
+                const rect = anchor.getBoundingClientRect();
+                const anchorCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(anchorCenter - viewportCenter);
 
-        function activateMostVisibleStep() {
-            let mostVisible = null;
-            let highestRatio = 0;
-
-            stepVisibility.forEach((data, element) => {
-                if (data.isIntersecting && data.ratio > highestRatio) {
-                    highestRatio = data.ratio;
-                    mostVisible = element;
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestAnchor = anchor;
                 }
             });
 
-            if (mostVisible) {
-                const targetId = mostVisible.getAttribute('data-target');
-                if (targetId) {
-                    // Deactivate all images
+            if (closestAnchor) {
+                const targetId = closestAnchor.getAttribute('data-target');
+                if (targetId && targetId !== currentActiveTarget) {
+                    currentActiveTarget = targetId;
+
+                    // Switch image
                     showcaseImgs.forEach(img => img.classList.remove('active'));
-                    
-                    // Activate correct image
                     const targetImg = document.getElementById(targetId);
-                    if (targetImg) {
-                        targetImg.classList.add('active');
-                    }
+                    if (targetImg) targetImg.classList.add('active');
 
-                    // Deactivate all step card highlights
-                    document.querySelectorAll('.step-card').forEach(card => card.classList.remove('active-focus'));
-
-                    // Activate current step card highlight
-                    const targetCard = mostVisible.querySelector('.step-card');
-                    if (targetCard) {
-                        targetCard.classList.add('active-focus');
-                    }
+                    // Switch step card highlight
+                    stepAnchors.forEach(a => {
+                        const card = a.querySelector('.step-card');
+                        if (card) card.classList.remove('active-focus');
+                    });
+                    const activeCard = closestAnchor.querySelector('.step-card');
+                    if (activeCard) activeCard.classList.add('active-focus');
                 }
             }
         }
 
-        const showcaseObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                stepVisibility.set(entry.target, {
-                    ratio: entry.intersectionRatio,
-                    isIntersecting: entry.isIntersecting
-                });
-            });
-            activateMostVisibleStep();
-        }, observerOptions);
-
-        stepAnchors.forEach(anchor => {
-            showcaseObserver.observe(anchor);
-        });
+        window.addEventListener('scroll', updateShowcase, { passive: true });
+        // Run once on load to set initial state
+        updateShowcase();
     }
 
 
     /* ==========================================================================
        3. Scroll Reveal Animations
        ========================================================================== */
-    const revealElements = document.querySelectorAll('.step-card, .feature-row, .team-card, .metric-card, .collab-text, .about-content, .vision-card, .studies-card');
+    // Exclude .step-card from reveal animation — its opacity is controlled by the showcase scroll logic
+    const revealElements = document.querySelectorAll('.feature-row, .team-card, .metric-card, .collab-text, .about-content, .vision-card, .studies-card');
     
     // Add initial setup style for animation support
     revealElements.forEach(el => {
@@ -167,26 +149,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    }
-                });
+    function updateActiveNav() {
+        const viewportCenter = window.innerHeight / 2;
+        let activeSection = null;
+        let closestDistance = Infinity;
+
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            // Check if section is visible at all
+            if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                const sectionCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(sectionCenter - viewportCenter);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    activeSection = section;
+                }
             }
         });
-    }, {
-        root: null,
-        rootMargin: '-45% 0px -45% 0px'
-    });
 
-    sections.forEach(section => {
-        navObserver.observe(section);
-    });
+        if (activeSection) {
+            const id = activeSection.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    // Run once on load
+    updateActiveNav();
 
 
     /* ==========================================================================
