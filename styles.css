@@ -1212,32 +1212,30 @@ h1, h2, h3, h4 {
         margin-top: 2rem;
     }
     
-    /* Interactive Showcase Mobile Adaptations */
+    /* Interactive Showcase Tablet/Mobile Adaptations */
     .showcase-container {
         flex-direction: column;
     }
     
     .showcase-visuals-wrapper {
-        display: flex !important;
+        display: none !important;
+    }
+    
+    .mobile-showcase-image {
+        display: block;
         width: 100%;
-        height: 280px;
-        position: sticky;
-        top: var(--header-height);
-        background-color: var(--bg-dark);
-        padding: 1rem 0;
-        z-index: 50;
-        justify-content: center;
-        border-bottom: 1px solid var(--border-glass);
-    }
-    
-    .showcase-visuals-inner {
-        max-width: 440px;
-        height: 100%;
-        aspect-ratio: auto;
-    }
-    
-    .visual-frame {
+        aspect-ratio: 16/10;
         border-radius: 8px;
+        overflow: hidden;
+        background-color: #000;
+        border: 1px solid var(--border-glass);
+        margin-bottom: 1.5rem;
+    }
+
+    .mobile-showcase-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     
     .showcase-content-wrapper {
@@ -1415,9 +1413,7 @@ h1, h2, h3, h4 {
         padding: 2rem 1.25rem;
     }
     
-    .showcase-visuals-wrapper {
-        height: 200px;
-    }
+
 
     .about-visuals-wrapper {
         padding-top: 3rem;

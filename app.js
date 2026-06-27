@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Observer options - focus on the middle region of the screen
         const observerOptions = {
             root: null,
-            rootMargin: '-35% 0px -35% 0px',
+            rootMargin: '-15% 0px -15% 0px',
             threshold: 0.1
         };
 
