@@ -429,6 +429,13 @@ h1, h2, h3, h4 {
     }
 }
 
+/* Shared section container for centering content */
+.section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
 /* --------------------------------------------------------------------------
    5. About Section
    -------------------------------------------------------------------------- */
@@ -632,11 +639,16 @@ h1, h2, h3, h4 {
 
 .step-card {
     padding: 0 2rem 0 3rem;
-    opacity: 0.25;
+    opacity: 0.35;
     transition: opacity 0.6s ease;
 }
 
 .step-card.active-focus {
+    opacity: 1;
+}
+
+/* Make first step card visible by default */
+.showcase-step-anchor:first-child .step-card {
     opacity: 1;
 }
 

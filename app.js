@@ -65,11 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const showcaseImgs = document.querySelectorAll('.showcase-img');
 
     if (stepAnchors.length > 0 && showcaseImgs.length > 0) {
-        // Observer options - focus on the middle region of the screen
+        // Activate the first step card by default
+        const firstCard = stepAnchors[0].querySelector('.step-card');
+        if (firstCard) firstCard.classList.add('active-focus');
+
         const observerOptions = {
             root: null,
-            rootMargin: '-15% 0px -15% 0px',
-            threshold: 0.1
+            rootMargin: '-10% 0px -10% 0px',
+            threshold: [0, 0.15, 0.3, 0.5]
         };
 
         const showcaseObserver = new IntersectionObserver((entries) => {
