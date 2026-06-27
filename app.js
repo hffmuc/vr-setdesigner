@@ -69,37 +69,58 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstCard = stepAnchors[0].querySelector('.step-card');
         if (firstCard) firstCard.classList.add('active-focus');
 
+        // Track visibility of each step anchor
+        const stepVisibility = new Map();
+
         const observerOptions = {
             root: null,
-            rootMargin: '-10% 0px -10% 0px',
-            threshold: [0, 0.15, 0.3, 0.5]
+            rootMargin: '0px 0px 0px 0px',
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
         };
+
+        function activateMostVisibleStep() {
+            let mostVisible = null;
+            let highestRatio = 0;
+
+            stepVisibility.forEach((data, element) => {
+                if (data.isIntersecting && data.ratio > highestRatio) {
+                    highestRatio = data.ratio;
+                    mostVisible = element;
+                }
+            });
+
+            if (mostVisible) {
+                const targetId = mostVisible.getAttribute('data-target');
+                if (targetId) {
+                    // Deactivate all images
+                    showcaseImgs.forEach(img => img.classList.remove('active'));
+                    
+                    // Activate correct image
+                    const targetImg = document.getElementById(targetId);
+                    if (targetImg) {
+                        targetImg.classList.add('active');
+                    }
+
+                    // Deactivate all step card highlights
+                    document.querySelectorAll('.step-card').forEach(card => card.classList.remove('active-focus'));
+
+                    // Activate current step card highlight
+                    const targetCard = mostVisible.querySelector('.step-card');
+                    if (targetCard) {
+                        targetCard.classList.add('active-focus');
+                    }
+                }
+            }
+        }
 
         const showcaseObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const targetId = entry.target.getAttribute('data-target');
-                    if (targetId) {
-                        // Deactivate all images
-                        showcaseImgs.forEach(img => img.classList.remove('active'));
-                        
-                        // Activate correct image
-                        const targetImg = document.getElementById(targetId);
-                        if (targetImg) {
-                            targetImg.classList.add('active');
-                        }
-
-                        // Deactivate all step card highlights
-                        document.querySelectorAll('.step-card').forEach(card => card.classList.remove('active-focus'));
-
-                        // Activate current step card highlight
-                        const targetCard = entry.target.querySelector('.step-card');
-                        if (targetCard) {
-                            targetCard.classList.add('active-focus');
-                        }
-                    }
-                }
+                stepVisibility.set(entry.target, {
+                    ratio: entry.intersectionRatio,
+                    isIntersecting: entry.isIntersecting
+                });
             });
+            activateMostVisibleStep();
         }, observerOptions);
 
         stepAnchors.forEach(anchor => {
