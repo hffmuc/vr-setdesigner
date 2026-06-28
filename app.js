@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const showcaseImgs = document.querySelectorAll('.showcase-img');
 
     if (stepAnchors.length > 0 && showcaseImgs.length > 0) {
-        let currentActiveTarget = 'img-splat';
+        let currentActiveTarget = '';
 
         function updateShowcase() {
             if (window.innerWidth >= 1024) {
