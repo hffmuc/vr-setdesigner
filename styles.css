@@ -681,6 +681,10 @@ h1, h2, h3, h4 {
     line-height: 1.6;
 }
 
+.showcase-dots {
+    display: none;
+}
+
 /* --------------------------------------------------------------------------
    7. Collaboration Section
    -------------------------------------------------------------------------- */
@@ -1248,12 +1252,27 @@ h1, h2, h3, h4 {
     .showcase-content-wrapper {
         width: 100%;
         padding: 0;
+        overflow: hidden;
     }
     
     .showcase-step-anchor {
         min-height: auto;
         padding: 3.5rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        /* Slide-in-from-right: initial hidden state */
+        opacity: 0;
+        transform: translateX(60px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .showcase-step-anchor:last-child {
+        border-bottom: none;
+    }
+
+    .showcase-step-anchor.slide-visible {
+        opacity: 1;
+        transform: translateX(0);
     }
     
     .step-card {

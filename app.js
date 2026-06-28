@@ -65,48 +65,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const showcaseImgs = document.querySelectorAll('.showcase-img');
 
     if (stepAnchors.length > 0 && showcaseImgs.length > 0) {
-        let currentActiveTarget = 'img-splat'; // Track current to avoid redundant DOM writes
+        let currentActiveTarget = 'img-splat';
 
         function updateShowcase() {
-            const viewportCenter = window.innerHeight / 2;
-            let closestAnchor = null;
-            let closestDistance = Infinity;
+            if (window.innerWidth >= 1024) {
+                const viewportCenter = window.innerHeight / 2;
+                let closestAnchor = null;
+                let closestDistance = Infinity;
 
-            stepAnchors.forEach(anchor => {
-                const rect = anchor.getBoundingClientRect();
-                const anchorCenter = rect.top + rect.height / 2;
-                const distance = Math.abs(anchorCenter - viewportCenter);
+                stepAnchors.forEach(anchor => {
+                    const rect = anchor.getBoundingClientRect();
+                    const anchorCenter = rect.top + rect.height / 2;
+                    const distance = Math.abs(anchorCenter - viewportCenter);
 
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestAnchor = anchor;
-                }
-            });
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestAnchor = anchor;
+                    }
+                });
 
-            if (closestAnchor) {
-                const targetId = closestAnchor.getAttribute('data-target');
-                if (targetId && targetId !== currentActiveTarget) {
-                    currentActiveTarget = targetId;
+                if (closestAnchor) {
+                    const targetId = closestAnchor.getAttribute('data-target');
+                    if (targetId && targetId !== currentActiveTarget) {
+                        currentActiveTarget = targetId;
 
-                    // Switch image
-                    showcaseImgs.forEach(img => img.classList.remove('active'));
-                    const targetImg = document.getElementById(targetId);
-                    if (targetImg) targetImg.classList.add('active');
+                        showcaseImgs.forEach(img => img.classList.remove('active'));
+                        const targetImg = document.getElementById(targetId);
+                        if (targetImg) targetImg.classList.add('active');
 
-                    // Switch step card highlight
-                    stepAnchors.forEach(a => {
-                        const card = a.querySelector('.step-card');
-                        if (card) card.classList.remove('active-focus');
-                    });
-                    const activeCard = closestAnchor.querySelector('.step-card');
-                    if (activeCard) activeCard.classList.add('active-focus');
+                        stepAnchors.forEach(a => {
+                            const card = a.querySelector('.step-card');
+                            if (card) card.classList.remove('active-focus');
+                        });
+                        const activeCard = closestAnchor.querySelector('.step-card');
+                        if (activeCard) activeCard.classList.add('active-focus');
+                    }
                 }
             }
         }
 
         window.addEventListener('scroll', updateShowcase, { passive: true });
-        // Run once on load to set initial state
         updateShowcase();
+
+        // --- Mobile Showcase: Slide-in-from-right ---
+        // CSS @media (max-width: 1023px) sets the initial hidden state (opacity:0, translateX:60px).
+        // Adding .slide-visible triggers the CSS transition. On desktop this class is a no-op.
+        const slideObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-visible');
+                    slideObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '0px 0px -10% 0px',
+            threshold: 0.1
+        });
+
+        stepAnchors.forEach(anchor => {
+            slideObserver.observe(anchor);
+        });
     }
 
 
